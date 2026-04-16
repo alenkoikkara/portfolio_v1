@@ -6,7 +6,12 @@ import BottomBar from './components/BottomBar';
 function App() {
 
   return (
-    <div className="relative w-full h-screen flex justify-between items-center">
+    <div className="relative w-full h-screen flex justify-between items-center overflow-hidden">
+      <style>{`
+        body {
+          overflow: hidden;
+        }
+      `}</style>
       <Navbar />
       <FluidCanvas />
       <BottomBar />
