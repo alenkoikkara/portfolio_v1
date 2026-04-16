@@ -5,7 +5,10 @@
 @theme {
   --font-sans: "Satoshi", ui-sans-serif, system-ui, sans-serif;
   --font-pixel: "Pixelify Sans", system-ui, sans-serif;
+
   --color-background: oklch(1 0 129.63 / 98);
+  --color-bbblack: oklch(0.1753 0.0063 122.07);
+  --color-slate: oklch(0.1753 0.0063 122.07 / 70%);
   
   /* Animations */
   --animate-float: float 6s ease-in-out infinite;
