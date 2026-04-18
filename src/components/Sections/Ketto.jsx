@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Text, Image, Center } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
+import { useThree, useFrame } from '@react-three/fiber';
 import { usePxToUnit } from '../../hooks/usePxToUnit';
+import * as THREE from 'three';
+import { useRandomToggle } from '../../hooks/useRandomToggle';
 
 const SATOSHI_BOLD = "https://cdn.fontshare.com/wf/LAFFD4SDUCDVQEXFPDC7C53EQ4ZELWQI/PXCT3G6LO6ICM5I3NTYENYPWJAECAWDD/GHM6WVH6MILNYOOCXHXB5GTSGNTMGXZR.ttf";
 const PIXELIFY_URL = "https://fonts.gstatic.com/s/pixelifysans/v3/CHy2V-3HFUT7aC4iv1TxGDR9DHEserHN25py2TQO131Y.ttf";
@@ -21,6 +23,34 @@ export default function Ketto({
   const [headerP1Width, setHeaderP1Width] = useState(0);
   const [titleP1Width, setTitleP1Width] = useState(0);
 
+  const [hovered, setHovered] = useState(false);
+  const chevronRef = useRef(null);
+  const imageRef = useRef(null);
+  const useSatoshiForO = useRandomToggle(800, 1500);
+
+  useFrame((state, delta) => {
+    if (chevronRef.current) {
+      const targetOpacity = hovered ? 1 : 0;
+      chevronRef.current.fillOpacity = THREE.MathUtils.lerp(
+        chevronRef.current.fillOpacity,
+        targetOpacity,
+        delta * 15
+      );
+    }
+
+    if (imageRef.current?.material) {
+      const targetGrayscale = hovered ? 0 : 1;
+      // ImageMaterial in drei allows direct access to the grayscale property.
+      if (imageRef.current.material.grayscale !== undefined) {
+        imageRef.current.material.grayscale = THREE.MathUtils.lerp(
+          imageRef.current.material.grayscale,
+          targetGrayscale,
+          delta * 10 
+        );
+      }
+    }
+  });
+
   // Responsive scaling
   const scale = Math.min(1, viewport.width / 8);
 
@@ -34,7 +64,17 @@ export default function Ketto({
   const imgHeight = imgWidth * 0.6; // assuming somewhat standard aspect ratio
 
   return (
-    <group position={position}>
+    <group 
+      position={position}
+      onPointerEnter={(e) => {
+        e.stopPropagation();
+        setHovered(true);
+      }}
+      onPointerLeave={(e) => {
+        e.stopPropagation();
+        setHovered(false);
+      }}
+    >
       {/* HEADER: "I love whitespaces." */}
       <Center position={[-.6, viewport.height * 0.34, 0]} scale={scale}>
         <group>
@@ -49,12 +89,12 @@ export default function Ketto({
             {headerPre}
           </Text>
           <Text
-            font={PIXELIFY_URL}
+            font={useSatoshiForO ? SATOSHI_BOLD : PIXELIFY_URL}
             fontSize={font64px} // Pixelify usually needs slight visual adjustments
             color="#10110E"
             anchorX="left"
             anchorY="middle"
-            position={[headerP1Width, -0.025, 0]}
+            position={[headerP1Width + .01, useSatoshiForO ? -0.01 : -0.02, 0]}
           >
             o
           </Text>
@@ -76,11 +116,13 @@ export default function Ketto({
 
         {/* Left Side: Image */}
         <Image
+          ref={imageRef}
           url={imageUrl}
           position={[-imgWidth / 2 - 0.5, 0, 0]}
           scale={[imgWidth, imgHeight]}
           transparent
           opacity={1}
+          grayscale={1}
         />
 
         {/* Right Side: Title and Subtitle */}
@@ -106,6 +148,20 @@ export default function Ketto({
             position={[0, 0.17, 0]}
           >
             {subtitle}
+          </Text>
+
+          {/* Fading Chevron */}
+          <Text
+            ref={chevronRef}
+            font={REGULAR_FONT}
+            fontSize={font16px * 1}
+            color="#666666"
+            anchorX="left"
+            anchorY="middle"
+            position={[1, 0.17, 0]}
+            fillOpacity={0}
+          >
+            ↗
           </Text>
         </group>
 

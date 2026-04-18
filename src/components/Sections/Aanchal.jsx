@@ -8,7 +8,7 @@ const SATOSHI_BOLD = "https://cdn.fontshare.com/wf/LAFFD4SDUCDVQEXFPDC7C53EQ4ZEL
 const PIXELIFY_URL = "https://fonts.gstatic.com/s/pixelifysans/v3/CHy2V-3HFUT7aC4iv1TxGDR9DHEserHN25py2TQO131Y.ttf";
 const REGULAR_FONT = "https://cdn.fontshare.com/wf/TTX2Z3BF3P6Y5BQT3IV2VNOK6FL22KUT/7QYRJOI3JIMYHGY6CH7SOIFRQLZOLNJ6/KFIAZD4RUMEZIYV6FQ3T3GP5PDBDB6JY.ttf"; // Satoshi Regular
 
-export default function Memento({
+export default function Aanchal({
   position = [0, 0, 0],
   imageUrl,
   headerPre,
@@ -58,7 +58,7 @@ export default function Memento({
 
   // Image dims - approx 45% of viewport width
   const imgWidth = viewport.width * 0.26;
-  const imgHeight = imgWidth * .771; // assuming somewhat standard aspect ratio
+  const imgHeight = imgWidth * 0.6; // assuming somewhat standard aspect ratio
 
   return (
     <group 
@@ -108,7 +108,7 @@ export default function Memento({
             color="#666666"
             anchorX="left"
             anchorY="middle"
-            position={[-.85, 0.17, 0]}
+            position={[-.8, 0.17, 0]}
             fillOpacity={0}
           >
             ↗

@@ -8,8 +8,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import HeroSection from './Sections/HeroSection';
 import Ketto from './Sections/Ketto';
 import Memento from './Sections/Memento';
+import Shreya from './Sections/Shreya';
+import Aanchal from './Sections/Aanchal'; 
 
-import archUrl from '../assets/arch.png';
+import glass from '../assets/glass.png';
+import ketto from '../assets/kettobanner.png';
+import memento from '../assets/mementoipad.png';
+
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -67,18 +73,32 @@ function Scene() {
           position={[0, -viewport.height, 0]} 
           headerPre="I l"
           headerPost="ve whitespaces."
-          imageUrl={archUrl} // Using archUrl placeholder or actual image URL you have
+          imageUrl={ketto} // Using archUrl placeholder or actual image URL you have
           titlePre="Ketto"
           titlePost=""
           subtitle="Crowdfunding Platform"
         />
         <Memento
           position={[0, -viewport.height * 2, 0]} 
-          imageUrl={archUrl} // Using archUrl placeholder or actual image URL you have
+          imageUrl={memento} // Using archUrl placeholder or actual image URL you have
           titlePre="Memento"
           titlePost=""
           subtitle="Knowledge Graph"
         />
+        <Shreya
+          position={[0, -viewport.height * 3, 0]} 
+          imageUrl={glass} // Using archUrl placeholder or actual image URL you have
+          titlePre="Shreya"
+          titlePost=""
+          subtitle="Portfolio Website"
+        />
+        <Aanchal
+          position={[0, -viewport.height * 4, 0]} 
+          imageUrl={glass} // Using archUrl placeholder or actual image URL you have
+          titlePre="Aanchal"
+          titlePost=""
+          subtitle="Portfolio Website"
+        />  
       </group>
 
       <EffectComposer>

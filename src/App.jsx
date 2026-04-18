@@ -66,7 +66,7 @@ function PageNavigation() {
         <div 
           key={i}
           onClick={() => scrollTo(i)}
-          className={`group flex items-center justify-end cursor-pointer transition-colors duration-300 ${activeSection === i ? 'text-bbblack' : 'text-slate hover:text-bbblack'}`}
+          className={`group flex items-center justify-end cursor-pointer transition-colors duration-300 text-slate hover:text-bbblack`}
         >
           <span className="flex">
             <span>{pages[i][0]}</span>

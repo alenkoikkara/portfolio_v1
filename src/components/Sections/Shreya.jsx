@@ -8,7 +8,7 @@ const SATOSHI_BOLD = "https://cdn.fontshare.com/wf/LAFFD4SDUCDVQEXFPDC7C53EQ4ZEL
 const PIXELIFY_URL = "https://fonts.gstatic.com/s/pixelifysans/v3/CHy2V-3HFUT7aC4iv1TxGDR9DHEserHN25py2TQO131Y.ttf";
 const REGULAR_FONT = "https://cdn.fontshare.com/wf/TTX2Z3BF3P6Y5BQT3IV2VNOK6FL22KUT/7QYRJOI3JIMYHGY6CH7SOIFRQLZOLNJ6/KFIAZD4RUMEZIYV6FQ3T3GP5PDBDB6JY.ttf"; // Satoshi Regular
 
-export default function Memento({
+export default function Shreya({
   position = [0, 0, 0],
   imageUrl,
   headerPre,
@@ -58,7 +58,7 @@ export default function Memento({
 
   // Image dims - approx 45% of viewport width
   const imgWidth = viewport.width * 0.26;
-  const imgHeight = imgWidth * .771; // assuming somewhat standard aspect ratio
+  const imgHeight = imgWidth * 0.6; // assuming somewhat standard aspect ratio
 
   return (
     <group 
@@ -73,16 +73,28 @@ export default function Memento({
       }}
     >
       {/* CONTENT: Image on Left, Text on Right */}
-      <group position={[0, 0, 0]}>
+      {/* CONTENT: Image on Left, Text on Right */}
+      <group position={[-.8, -viewport.height * 0.1, 0]}>
 
-        {/* Left Side: Title and Subtitle */}
-        <group position={[.4, -imgHeight * .60, 0]}>
+        {/* Left Side: Image */}
+        <Image
+          ref={imageRef}
+          url={imageUrl}
+          position={[-imgWidth / 2 - 0.5, 0, 0]}
+          scale={[imgWidth, imgHeight]}
+          transparent
+          opacity={1}
+          grayscale={1}
+        />  
+
+        {/* Right Side: Title and Subtitle */}
+        <group position={[-.34, -imgHeight * .60, 0]}>
           <group position={[0, 0.35, 0]}>
             <Text
               font={SATOSHI_BOLD}
               fontSize={font36px}
               color="#10110E"
-              anchorX="right"
+              anchorX="left"
               anchorY="middle"
             >
               {titlePre}
@@ -93,7 +105,7 @@ export default function Memento({
             font={REGULAR_FONT}
             fontSize={font16px}
             color="#666666" // Lighter grey for subtitle
-            anchorX="right"
+            anchorX="left"
             anchorY="middle"
             position={[0, 0.17, 0]}
           >
@@ -108,25 +120,15 @@ export default function Memento({
             color="#666666"
             anchorX="left"
             anchorY="middle"
-            position={[-.85, 0.17, 0]}
+            position={[0.8, 0.17, 0]}
             fillOpacity={0}
           >
             ↗
           </Text>
         </group>
 
-        {/* Right Side: Image */}
-        <Image
-          ref={imageRef}
-          url={imageUrl}
-          position={[imgWidth / 2 + 0.5, 0, 0]}
-          scale={[imgWidth, imgHeight]}
-          transparent
-          opacity={1}
-          grayscale={1}
-        />
-
       </group>
+
     </group>
   );
 }
