@@ -106,10 +106,10 @@ function Scene() {
           ref={fluidRef}
           intensity={0.5}
           force={1}
-          distortion={0.1}
-          curl={0.2}
-          radius={0.25}
-          swirl={2}
+          distortion={0.3}
+          curl={0.6}
+          radius={0.55}
+          swirl={4}
           blend={2}
           showBackground={false}
           fluidColor="#000000"
