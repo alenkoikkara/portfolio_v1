@@ -1,41 +1,59 @@
-import React, { Suspense, useRef, useMemo, useState, useEffect } from 'react';
+import React, { Suspense, useRef, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Text, Center, ScrollControls, Scroll, useScroll, Image } from '@react-three/drei';
 import { Fluid } from '@whatisjery/react-fluid-distortion';
 import { EffectComposer } from '@react-three/postprocessing';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Font URLs
-const SATOSHI_BOLD = "https://cdn.fontshare.com/wf/LAFFD4SDUCDVQEXFPDC7C53EQ4ZELWQI/PXCT3G6LO6ICM5I3NTYENYPWJAECAWDD/GHM6WVH6MILNYOOCXHXB5GTSGNTMGXZR.ttf";
-const NEWSREADER_BOLD = "https://fonts.gstatic.com/s/newsreader/v26/cY9qfjOCX1hbuyalUrK49dLac06G1ZGsZBtoBCzBDXXD9JVF438wn4jADA.ttf";
-const PIXELIFY_URL = "https://fonts.gstatic.com/s/pixelifysans/v3/CHy2V-3HFUT7aC4iv1TxGDR9DHEserHN25py2TQO131Y.ttf";
+import HeroSection from './Sections/HeroSection';
+import ProjectSection from './Sections/ProjectSection';
 
-// Asset Imports
 import archUrl from '../assets/arch.png';
 import glassUrl from '../assets/glass.png';
 import uiUrl from '../assets/ui.png';
 import techUrl from '../assets/tech.png';
 
+gsap.registerPlugin(ScrollTrigger);
+
 function Scene() {
-  const scroll = useScroll();
   const fluidRef = useRef();
   const { viewport } = useThree();
-  const [p1Width, setP1Width] = useState(0);
-  const [p2Width, setP2Width] = useState(0);
-  const [useSatoshiForO, setUseSatoshiForO] = useState(false);
+  const sceneRef = useRef();
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setUseSatoshiForO(prev => !prev);
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+    const trigger = ScrollTrigger.create({
+      trigger: "main",
+      start: "top top",
+      end: "bottom bottom",
+      scrub: true,
+      snap: {
+        snapTo: 1 / 4, // 5 sections, so 4 gaps (25% each)
+        duration: { min: 0.2, max: 0.8 },
+        ease: "power1.inOut"
+      },
+      onUpdate: (self) => {
+        if (sceneRef.current) {
+          // As we scroll down (progress 0->1), move the group up to reveal the sections below
+          sceneRef.current.position.y = self.progress * (viewport.height * 4);
+        }
+        
+        // Fluid mapping
+        if (fluidRef.current) {
+          const velocity = Math.abs(self.getVelocity() / 500);
+          fluidRef.current.intensity = 0.5 + velocity * 2;
+          fluidRef.current.force = 1 + velocity * 5;
+        }
+      }
+    });
 
-  useFrame((state, delta) => {
+    return () => trigger.kill();
+  }, [viewport.height]);
+
+  useFrame(() => {
+    // Smoothly decay the fluid distortion when scrolling stops
     if (fluidRef.current) {
-      // Map scroll velocity to fluid distortion intensity and force
-      const velocity = scroll.velocity;
-      fluidRef.current.intensity = 0.5 + velocity * 2;
-      fluidRef.current.force = 1 + velocity * 5;
+      fluidRef.current.intensity = gsap.utils.interpolate(fluidRef.current.intensity, 0.5, 0.05);
+      fluidRef.current.force = gsap.utils.interpolate(fluidRef.current.force, 1, 0.05);
     }
   });
 
@@ -45,107 +63,18 @@ function Scene() {
       <ambientLight intensity={0.5} />
       <pointLight position={[10, 10, 10]} intensity={1} />
 
-      <Scroll>
-        {/* Section 1: Hero Text */}
-        <Center key={viewport.width} position={[-1.5, .4, -2]}>
-          <Text
-            font={SATOSHI_BOLD}
-            fontSize={.36}
-            color="black"
-            anchorX="left"
-            anchorY="middle"
-            textAlign="left"
-            position={[0, 1, 0]}
-          >
-            Hi !
-          </Text>
-          <Text
-            font={NEWSREADER_BOLD}
-            fontSize={.64}
-            color="black"
-            anchorX="left"
-            anchorY="middle"
-            textAlign="left"
-            position={[0, .4, 0]}
-          >
-            I am Alen Koikkara.
-          </Text>
-          <group position={[0, -0.2, 0]}>
-            <Text
-              font={SATOSHI_BOLD}
-              fontSize={0.48}
-              color="#10110E"
-              anchorX="left"
-              anchorY="middle"
-              textAlign="left"
-              onSync={(m) => {
-                m.geometry.computeBoundingBox();
-                setP1Width(m.geometry.boundingBox.max.x - 0.01);
-              }}
-            >
-              I like t
-            </Text>
-            <Text
-              font={useSatoshiForO ? SATOSHI_BOLD : PIXELIFY_URL}
-              fontSize={useSatoshiForO ? 0.40 : 0.42}
-              color="black"
-              anchorX="left"
-              anchorY="middle"
-              textAlign="left"
-              position={[p1Width, useSatoshiForO ? -0.04 : -0.05, 0]}
-            >
-              o
-            </Text>
-            <Text
-              font={SATOSHI_BOLD}
-              fontSize={0.48}
-              color="black"
-              anchorX="left"
-              anchorY="middle"
-              textAlign="left"
-              position={[p1Width + p2Width + 0.35, -.01, 0]}
-            >
-              create.
-            </Text>
-          </group>
-        </Center>
-
-        {/* Section 2: Architecture */}
-        <Image 
-          url={archUrl} 
-          position={[0, -viewport.height, -5]} 
-          scale={[viewport.width * 0.7, viewport.height * 0.7]} 
-          transparent
-          opacity={0.9}
+      <group ref={sceneRef}>
+        <HeroSection position={[0, 0, 0]} />
+        <ProjectSection 
+          position={[0, -viewport.height, 0]} 
+          headerPre="I l"
+          headerPost="ve whitespaces."
+          imageUrl={archUrl} // Using archUrl placeholder or actual image URL you have
+          titlePre="Ketto"
+          titlePost=""
+          subtitle="Crowdfunding Platform"
         />
-
-        {/* Section 3: Glass Art */}
-        <Image 
-          url={glassUrl} 
-          position={[0, -viewport.height * 2, -5]} 
-          scale={[viewport.width * 0.7, viewport.height * 0.7]} 
-          transparent
-          opacity={1}
-        />
-
-        {/* Section 4: UI Design */}
-        <Image 
-          url={uiUrl} 
-          position={[0, -viewport.height * 3, -5]} 
-          scale={[viewport.width * 0.7, viewport.height * 0.7]} 
-          transparent
-          opacity={0.9}
-        />
-
-        {/* Section 5: Tech Art */}
-        <Image 
-          url={techUrl} 
-          position={[0, -viewport.height * 4, -5]} 
-          scale={[viewport.width * 0.7, viewport.height * 0.7]} 
-          transparent
-          opacity={0.9}
-        />
-      </Scroll>
+      </group>
 
       <EffectComposer>
         <Fluid
@@ -167,16 +96,14 @@ function Scene() {
 
 export default function FluidCanvas() {
   return (
-    <div className="fixed inset-0 w-full h-full bg-background">
+    <div className="fixed inset-0 w-full h-full bg-background pointer-events-none z-0">
       <Canvas
         shadows
         camera={{ position: [0, 0, 5], fov: 50 }}
         dpr={[1, 2]}
       >
         <Suspense fallback={null}>
-          <ScrollControls pages={5} damping={0.2}>
-            <Scene />
-          </ScrollControls>
+          <Scene />
         </Suspense>
       </Canvas>
     </div>
