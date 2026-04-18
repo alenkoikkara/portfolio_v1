@@ -6,12 +6,10 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import HeroSection from './Sections/HeroSection';
-import ProjectSection from './Sections/ProjectSection';
+import Ketto from './Sections/Ketto';
+import Memento from './Sections/Memento';
 
 import archUrl from '../assets/arch.png';
-import glassUrl from '../assets/glass.png';
-import uiUrl from '../assets/ui.png';
-import techUrl from '../assets/tech.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,7 +63,7 @@ function Scene() {
 
       <group ref={sceneRef}>
         <HeroSection position={[0, 0, 0]} />
-        <ProjectSection 
+        <Ketto 
           position={[0, -viewport.height, 0]} 
           headerPre="I l"
           headerPost="ve whitespaces."
@@ -73,6 +71,13 @@ function Scene() {
           titlePre="Ketto"
           titlePost=""
           subtitle="Crowdfunding Platform"
+        />
+        <Memento
+          position={[0, -viewport.height * 2, 0]} 
+          imageUrl={archUrl} // Using archUrl placeholder or actual image URL you have
+          titlePre="Memento"
+          titlePost=""
+          subtitle="Knowledge Graph"
         />
       </group>
 

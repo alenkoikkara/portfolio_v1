@@ -20,3 +20,8 @@
     50% { transform: translateY(-20px); }
   }
 }
+
+/* Hide the default system cursor everywhere */
+* {
+  cursor: none !important;
+}

@@ -7,7 +7,7 @@ const SATOSHI_BOLD = "https://cdn.fontshare.com/wf/LAFFD4SDUCDVQEXFPDC7C53EQ4ZEL
 const PIXELIFY_URL = "https://fonts.gstatic.com/s/pixelifysans/v3/CHy2V-3HFUT7aC4iv1TxGDR9DHEserHN25py2TQO131Y.ttf";
 const REGULAR_FONT = "https://cdn.fontshare.com/wf/TTX2Z3BF3P6Y5BQT3IV2VNOK6FL22KUT/7QYRJOI3JIMYHGY6CH7SOIFRQLZOLNJ6/KFIAZD4RUMEZIYV6FQ3T3GP5PDBDB6JY.ttf"; // Satoshi Regular
 
-export default function ProjectSection({
+export default function Memento({
   position = [0, 0, 0],
   imageUrl,
   headerPre,
@@ -35,62 +35,17 @@ export default function ProjectSection({
 
   return (
     <group position={position}>
-      {/* HEADER: "I love whitespaces." */}
-      <Center position={[-.6, viewport.height * 0.34, 0]} scale={scale}>
-        <group>
-          <Text
-            font={SATOSHI_BOLD}
-            fontSize={font64px}
-            color="#10110E"
-            anchorX="left"
-            anchorY="middle"
-            position={[-.3, 0, 0]}
-          >
-            {headerPre}
-          </Text>
-          <Text
-            font={PIXELIFY_URL}
-            fontSize={font64px} // Pixelify usually needs slight visual adjustments
-            color="#10110E"
-            anchorX="left"
-            anchorY="middle"
-            position={[headerP1Width, -0.025, 0]}
-          >
-            o
-          </Text>
-          <Text
-            font={SATOSHI_BOLD}
-            fontSize={font64px}
-            color="#10110E"
-            anchorX="left"
-            anchorY="middle"
-            position={[headerP1Width + 0.24, -0.005, 0]}
-          >
-            {headerPost}
-          </Text>
-        </group>
-      </Center>
-
       {/* CONTENT: Image on Left, Text on Right */}
-      <group position={[-.8, -viewport.height * 0.1, 0]}>
+      <group position={[0, 0, 0]}>
 
-        {/* Left Side: Image */}
-        <Image
-          url={imageUrl}
-          position={[-imgWidth / 2 - 0.5, 0, 0]}
-          scale={[imgWidth, imgHeight]}
-          transparent
-          opacity={1}
-        />
-
-        {/* Right Side: Title and Subtitle */}
-        <group position={[-.34, -imgHeight * .60, 0]}>
+        {/* Left Side: Title and Subtitle */}
+        <group position={[.4, -imgHeight * .60, 0]}>
           <group position={[0, 0.35, 0]}>
             <Text
               font={SATOSHI_BOLD}
               fontSize={font36px}
               color="#10110E"
-              anchorX="left"
+              anchorX="right"
               anchorY="middle"
             >
               {titlePre}
@@ -101,13 +56,22 @@ export default function ProjectSection({
             font={REGULAR_FONT}
             fontSize={font16px}
             color="#666666" // Lighter grey for subtitle
-            anchorX="left"
+            anchorX="right"
             anchorY="middle"
             position={[0, 0.17, 0]}
           >
             {subtitle}
           </Text>
         </group>
+
+        {/* Right Side: Image */}
+        <Image
+          url={imageUrl}
+          position={[imgWidth / 2 + 0.5, 0, 0]}
+          scale={[imgWidth, imgHeight]}
+          transparent
+          opacity={1}
+        />
 
       </group>
     </group>
