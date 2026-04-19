@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const DIAL_CODES = {
   US: '+1', CA: '+1', GB: '+44', IN: '+91', AU: '+61', DE: '+49', FR: '+33',
@@ -52,6 +52,7 @@ function formatPhone(raw, countryKey) {
 }
 
 const ContactModal = ({ isOpen, onClose }) => {
+  const nameInputRef = useRef(null);
   const [countryKey, setCountryKey] = useState('US');
   const [countryCode, setCountryCode] = useState('+1');
   const [formData, setFormData] = useState({
@@ -60,6 +61,14 @@ const ContactModal = ({ isOpen, onClose }) => {
     phone: '',
     message: '',
   });
+
+  // Focus the name input when the modal opens
+  useEffect(() => {
+    if (isOpen) {
+      const timer = setTimeout(() => nameInputRef.current?.focus(), 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
 
   useEffect(() => {
     fetch('https://ipapi.co/json/')
@@ -135,6 +144,7 @@ const ContactModal = ({ isOpen, onClose }) => {
           {/* Form */}
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <input
+              ref={nameInputRef}
               type="text"
               name="fullName"
               placeholder="Full Name"

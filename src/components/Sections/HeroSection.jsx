@@ -12,7 +12,8 @@ export default function HeroSection({ position = [0, 0, 0] }) {
   const { viewport } = useThree();
   const [p1Width, setP1Width] = useState(0);
   const [nameP1Width, setNameP1Width] = useState(0);
-  const useSatoshiForO = useRandomToggle(900, 2500);
+  const useSatoshiName = useRandomToggle(900, 2500);
+  const useSatoshiCreate = useRandomToggle(900, 2500);
 
   return (
     <group position={position}>
@@ -48,13 +49,13 @@ export default function HeroSection({ position = [0, 0, 0] }) {
             I am Alen K
           </Text>
           <Text
-            font={useSatoshiForO ? NEWSREADER_BOLD : PIXELIFY_URL}
-            fontSize={useSatoshiForO ? 0.64 : 0.56}
+            font={useSatoshiName ? NEWSREADER_BOLD : PIXELIFY_URL}
+            fontSize={useSatoshiName ? 0.64 : 0.56}
             color="black"
             anchorX="left"
             anchorY="middle"
             textAlign="left"
-            position={[nameP1Width, useSatoshiForO ? 0 : .03, 0]}
+            position={[nameP1Width, useSatoshiName ? 0 : .03, 0]}
           >
             o
           </Text>
@@ -65,7 +66,7 @@ export default function HeroSection({ position = [0, 0, 0] }) {
             anchorX="left"
             anchorY="middle"
             textAlign="left"
-            position={[nameP1Width + (useSatoshiForO ? 0.32 : 0.30), 0, 0]}
+            position={[nameP1Width + (useSatoshiName ? 0.32 : 0.30), 0, 0]}
           >
             ikkara.
           </Text>
@@ -86,13 +87,13 @@ export default function HeroSection({ position = [0, 0, 0] }) {
             I like t
           </Text>
           <Text
-            font={useSatoshiForO ? SATOSHI_BOLD : PIXELIFY_URL}
-            fontSize={useSatoshiForO ? 0.40 : 0.42}
+            font={useSatoshiCreate ? SATOSHI_BOLD : PIXELIFY_URL}
+            fontSize={useSatoshiCreate ? 0.40 : 0.42}
             color="black"
             anchorX="left"
             anchorY="middle"
             textAlign="left"
-            position={[p1Width, useSatoshiForO ? -0.04 : -0.05, 0]}
+            position={[p1Width, useSatoshiCreate ? -0.04 : -0.05, 0]}
           >
             o
           </Text>

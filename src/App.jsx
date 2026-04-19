@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import FluidCanvas from './components/FluidCanvas';
 import Navbar from './components/Navbar';
 import BottomBar from './components/BottomBar';
 import CustomCursor from './components/CustomCursor';
+import PhotographyPage from './pages/PhotographyPage';
 import { ReactLenis, useLenis } from 'lenis/react';
 import 'lenis/dist/lenis.css';
 
@@ -43,6 +45,9 @@ function PageNavigation() {
     "Graphic Design"
   ];
 
+  const pageRoutes = ["/photography", null, null];
+  const navigate = useNavigate();
+
   const [activeSection, setActiveSection] = useState(0);
   const [isScrolled, setIsScrolled] = useState(false);
   const lenis = useLenis(({ scroll }) => {
@@ -55,6 +60,10 @@ function PageNavigation() {
   });
 
   const scrollTo = (index) => {
+    if (pageRoutes[index]) {
+      navigate(pageRoutes[index]);
+      return;
+    }
     if (lenis) {
       lenis.scrollTo(index * window.innerHeight, { lerp: 0.05 });
     }
@@ -113,12 +122,10 @@ function ScrollIndicator() {
 }
 
 
-function App() {
+function HomePage() {
   return (
     <ReactLenis root>
       <div className="relative w-full">
-        <CustomCursor />
-        <Navbar />
         <DotNavigation />
         <PageNavigation />
         {/* Physical Scroll Sections */}
@@ -132,10 +139,23 @@ function App() {
 
         <FluidCanvas />
         <ScrollIndicator />
-        <BottomBar />
       </div>
     </ReactLenis>
-  )
+  );
+}
+
+function App() {
+  return (
+    <div className="relative w-full">
+      <CustomCursor />
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/photography" element={<PhotographyPage />} />
+      </Routes>
+      <BottomBar />
+    </div>
+  );
 }
 
 export default App;
