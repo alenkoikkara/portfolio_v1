@@ -80,6 +80,39 @@ function PageNavigation() {
   );
 }
 
+
+function ScrollIndicator() {
+  const [opacity, setOpacity] = useState(1);
+
+  useLenis(({ scroll }) => {
+    // Fade out over the first 200px of scroll
+    const newOpacity = Math.max(0, 1 - scroll / 200);
+    setOpacity(newOpacity);
+  });
+
+  return (
+    <div
+      className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-1 transition-opacity duration-300 pointer-events-none"
+      style={{ opacity }}
+    >
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="text-bbblack animate-bounce"
+      >
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </div>
+  );
+}
+
+
 function App() {
   return (
     <ReactLenis root>
@@ -98,6 +131,7 @@ function App() {
         </main>
 
         <FluidCanvas />
+        <ScrollIndicator />
         <BottomBar />
       </div>
     </ReactLenis>

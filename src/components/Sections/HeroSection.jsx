@@ -11,7 +11,8 @@ const PIXELIFY_URL = "https://fonts.gstatic.com/s/pixelifysans/v3/CHy2V-3HFUT7aC
 export default function HeroSection({ position = [0, 0, 0] }) {
   const { viewport } = useThree();
   const [p1Width, setP1Width] = useState(0);
-  const useSatoshiForO = useRandomToggle(800, 1500);
+  const [nameP1Width, setNameP1Width] = useState(0);
+  const useSatoshiForO = useRandomToggle(900, 2500);
 
   return (
     <group position={position}>
@@ -31,17 +32,44 @@ export default function HeroSection({ position = [0, 0, 0] }) {
         >
           Hi !
         </Text>
-        <Text
-          font={NEWSREADER_BOLD}
-          fontSize={.64}
-          color="black"
-          anchorX="left"
-          anchorY="middle"
-          textAlign="left"
-          position={[0, .4, 0]}
-        >
-          I am Alen Koikkara.
-        </Text>
+        <group position={[0, .4, 0]}>
+          <Text
+            font={NEWSREADER_BOLD}
+            fontSize={.64}
+            color="black"
+            anchorX="left"
+            anchorY="middle"
+            textAlign="left"
+            onSync={(m) => {
+              m.geometry.computeBoundingBox();
+              setNameP1Width(m.geometry.boundingBox.max.x);
+            }}
+          >
+            I am Alen K
+          </Text>
+          <Text
+            font={useSatoshiForO ? NEWSREADER_BOLD : PIXELIFY_URL}
+            fontSize={useSatoshiForO ? 0.64 : 0.56}
+            color="black"
+            anchorX="left"
+            anchorY="middle"
+            textAlign="left"
+            position={[nameP1Width, useSatoshiForO ? 0 : .03, 0]}
+          >
+            o
+          </Text>
+          <Text
+            font={NEWSREADER_BOLD}
+            fontSize={.64}
+            color="black"
+            anchorX="left"
+            anchorY="middle"
+            textAlign="left"
+            position={[nameP1Width + (useSatoshiForO ? 0.32 : 0.30), 0, 0]}
+          >
+            ikkara.
+          </Text>
+        </group>
         <group position={[0, -0.2, 0]}>
           <Text
             font={SATOSHI_BOLD}
