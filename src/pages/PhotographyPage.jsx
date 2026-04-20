@@ -25,6 +25,12 @@ const PHOTO_ROWS = [
     { src: trainStation, title: 'Platform 3', date: 'Monday, Feb 24, 2025 at 9:15 PM', location: 'London, UK', lens: '35mm / f/1.4' },
     { src: beachSilhouette, title: 'City of Dreams', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Mumbai, IN', lens: '100mm / f/1.4' },
   ],
+  [
+    { src: streetGlow, title: 'Night Walk', date: 'Wednesday, Jan 15, 2025 at 11:30 PM', location: 'Brooklyn, NY', lens: '35mm / f/1.4' },
+    { src: cloudscape, title: 'Storm Coming', date: 'Saturday, Apr 5, 2025 at 6:12 PM', location: 'Kansas City, MO', lens: '16mm / f/4' },
+    { src: trainStation, title: 'Platform 3', date: 'Monday, Feb 24, 2025 at 9:15 PM', location: 'London, UK', lens: '35mm / f/1.4' },
+    { src: beachSilhouette, title: 'City of Dreams', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Mumbai, IN', lens: '100mm / f/1.4' },
+  ],
 ];
 
 // Sidebar nav labels
@@ -53,11 +59,11 @@ function SwitchO({ fontSize = '64px', className = '' }) {
 function MetadataPanel({ photo, active }) {
   return (
     <div
-      className="h-full flex flex-col justify-center overflow-hidden whitespace-nowrap"
+      className="h-full flex flex-col justify-end overflow-hidden whitespace-nowrap"
       style={{
-        width: active ? '55%' : '0%',
+        width: active ? '100%' : '0%',
         opacity: active ? 1 : 0,
-        padding: active ? '0 16px' : '0 0',
+        padding: active ? '0 0' : '0 0',
         transition: 'width 0.7s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease 0.15s, padding 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
         flexShrink: 0,
       }}
@@ -91,7 +97,7 @@ function PhotoRow({ photos }) {
   const compressIdx = getCompressIdx(hoveredIdx);
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-5">
       {photos.map((photo, idx) => {
         const isHovered = hoveredIdx === idx;
         const isCompressed = idx === compressIdx;
@@ -170,13 +176,13 @@ export default function PhotographyPage() {
 
       {/* Hero Section */}
       <section className="flex items-center justify-center pt-[20%] pb-[20%] px-8">
-        <h1 className="text-[64px] font-bold text-bbblack leading-none tracking-tight">
+        <h1 className="text-[64px] font-bold text-bbblack leading-none">
           I l<SwitchO />ve ph<SwitchO />t<SwitchO />graphy too !
         </h1>
       </section>
 
       {/* Photo Grid — 4 per row, equal size, scales with viewport */}
-      <section className="px-8 pb-24 flex flex-col gap-2">
+      <section className="px-8 pb-24 flex flex-col gap-5">
         {PHOTO_ROWS.map((row, idx) => (
           <PhotoRow key={idx} photos={row} />
         ))}
