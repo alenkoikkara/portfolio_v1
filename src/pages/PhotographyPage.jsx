@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useRandomToggle } from '../hooks/useRandomToggle';
+import SidebarNavigation from '../components/SidebarNavigation';
 
 // Photography images
 import citySunset from '../assets/photography/city_sunset.png';
@@ -33,28 +34,10 @@ const PHOTO_ROWS = [
   ],
 ];
 
+import SwitchO from '../components/SwitchO';
+
 // Sidebar nav labels
 const SIDEBAR_LINKS = ['Photography', 'G', 'B'];
-
-// Each "o" gets its own independent toggle
-function SwitchO({ fontSize = '64px', className = '' }) {
-  const useSatoshi = useRandomToggle(900, 2500);
-
-  return (
-    <span
-      className={className}
-      style={{
-        fontFamily: useSatoshi ? 'Satoshi, sans-serif' : '"Pixelify Sans", system-ui',
-        fontSize,
-        display: 'inline-block',
-        verticalAlign: useSatoshi ? 'baseline' : '2px',
-        transition: 'font-size 0.15s ease',
-      }}
-    >
-      o
-    </span>
-  );
-}
 
 function MetadataPanel({ photo, active }) {
   return (
@@ -157,23 +140,10 @@ export default function PhotographyPage() {
   return (
     <div className="min-h-screen bg-white relative" style={{ fontFamily: 'Satoshi, sans-serif' }}>
       {/* Right Sidebar Navigation */}
-      <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col items-end gap-8 text-[12px] font-bold">
-        {SIDEBAR_LINKS.map((label, i) => (
-          <div
-            key={i}
-            className={`group flex items-center justify-end cursor-pointer transition-colors duration-300 ${i === 0 ? 'text-bbblack' : 'text-slate hover:text-bbblack'
-              }`}
-          >
-            <span className="flex">
-              <span>{label[0]}</span>
-              <span className="max-w-0 opacity-0 overflow-hidden transition-all duration-1800 ease-in-out group-hover:max-w-[150px] group-hover:opacity-100 whitespace-nowrap">
-                {label.slice(1)}
-              </span>
-            </span>
-          </div>
-        ))}
-      </div>
-
+      <SidebarNavigation 
+        links={SIDEBAR_LINKS} 
+        activeIndex={0} 
+      />
       {/* Hero Section */}
       <section className="flex items-center justify-center pt-[20%] pb-[20%] px-8">
         <h1 className="text-[64px] font-bold text-bbblack leading-none">

@@ -57,7 +57,10 @@ const Navbar = () => {
 				>
 					Work
 				</div>
-				<div className={`cursor-pointer hover:text-bbblack transition-colors duration-300 ${isPastHero ? 'text-bbblack' : 'text-slate'}`}>
+				<div 
+					onClick={() => navigate('/about')}
+					className={`cursor-pointer hover:text-bbblack transition-colors duration-300 ${isPastHero ? 'text-bbblack' : 'text-slate'}`}
+				>
 					About
 				</div>
 			</div>

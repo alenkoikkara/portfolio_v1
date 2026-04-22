@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import BottomBar from './components/BottomBar';
 import CustomCursor from './components/CustomCursor';
 import PhotographyPage from './pages/PhotographyPage';
+import SidebarNavigation from './components/SidebarNavigation';
 import { ReactLenis, useLenis } from 'lenis/react';
 import 'lenis/dist/lenis.css';
 
@@ -23,12 +24,12 @@ function DotNavigation() {
   };
 
   return (
-    <div className="fixed left-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4">
+    <div className="fixed left-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-4 mix-blend-difference">
       {[0, 1, 2, 3, 4].map((i) => (
         <button
           key={i}
           onClick={() => scrollTo(i)}
-          className={`w-[6px] h-[6px] cursor-pointer border transition-all duration-300 ${activeSection === i ? 'border-dove-dark scale-150' : 'border-dove'
+          className={`w-[6px] h-[6px] cursor-pointer border transition-all duration-300 ${activeSection === i ? 'border-white scale-150' : 'border-white/50'
             }`}
           aria-label={`Scroll to section ${i + 1}`}
         />
@@ -70,22 +71,12 @@ function PageNavigation() {
   };
 
   return (
-    <div className={`fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col items-end gap-8 text-[12px] font-bold transition-opacity duration-1000 ${isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
-      {[0, 1, 2].map((i) => (
-        <div 
-          key={i}
-          onClick={() => scrollTo(i)}
-          className={`group flex items-center justify-end cursor-pointer transition-colors duration-300 text-slate hover:text-bbblack`}
-        >
-          <span className="flex">
-            <span>{pages[i][0]}</span>
-            <span className="max-w-0 opacity-0 overflow-hidden transition-all duration-1800 ease-in-out group-hover:max-w-[150px] group-hover:opacity-100 whitespace-nowrap">
-              {pages[i].slice(1)}
-            </span>
-          </span>
-        </div>
-      ))}
-    </div>
+    <SidebarNavigation 
+      links={pages}
+      activeIndex={-1}
+      className={`transition-opacity duration-1000 ${isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      onLinkClick={scrollTo}
+    />
   );
 }
 
@@ -144,6 +135,8 @@ function HomePage() {
   );
 }
 
+import AboutPage from './pages/AboutPage';
+
 function App() {
   return (
     <div className="relative w-full">
@@ -152,6 +145,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/photography" element={<PhotographyPage />} />
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
       <BottomBar />
     </div>

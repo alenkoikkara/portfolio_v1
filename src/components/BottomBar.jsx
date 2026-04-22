@@ -8,19 +8,19 @@ const BottomBar = () => {
 
 	return (
 		<>
-			<footer className="fixed bottom-0 left-0 w-full z-50 flex justify-between items-center text-[12px] font-bold p-5">
-				<div className='cursor-pointer text-slate font-medium	'>
+			<footer className="fixed bottom-0 left-0 w-full z-50 flex justify-between items-center text-[12px] font-bold p-5 mix-blend-difference text-white">
+				<div className='cursor-pointer font-medium'>
 					Copyright © 2026 Alen Koikkara
 				</div>
 				<div className={`flex items-center justify-between gap-12 w-[30%] transform transition-all duration-500 ease-in-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full pointer-events-none'}`}>
-					<div className='flex gap-4 cursor-pointer text-slate transition-colors duration-300'>
-						<div className='hover:text-bbblack'>Li</div>
-						<div className='hover:text-bbblack'>Gh</div>
-						<div className='hover:text-bbblack'>Md</div>
+					<div className='flex gap-4 cursor-pointer transition-opacity duration-300'>
+						<div className='hover:opacity-70'>Li</div>
+						<div className='hover:opacity-70'>Gh</div>
+						<div className='hover:opacity-70'>Md</div>
 					</div>
 					<div 
 						onClick={() => setIsContactOpen(!isContactOpen)}
-						className='cursor-pointer text-slate hover:text-bbblack transition-colors duration-300'
+						className='cursor-pointer hover:opacity-70 transition-opacity duration-300'
 					>
 						Contact
 					</div>
