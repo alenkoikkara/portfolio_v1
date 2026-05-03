@@ -29,7 +29,7 @@ function DotNavigation() {
         <button
           key={i}
           onClick={() => scrollTo(i)}
-          className={`w-[6px] h-[6px] cursor-pointer border transition-all duration-300 ${activeSection === i ? 'border-white scale-150' : 'border-white/50'
+          className={`w-[6px] h-[6px] opacity-50 cursor-pointer border transition-all duration-300 ${activeSection === i ? 'border-white scale-150' : 'border-white/50'
             }`}
           aria-label={`Scroll to section ${i + 1}`}
         />

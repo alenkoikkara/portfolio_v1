@@ -14,13 +14,13 @@ const BottomBar = () => {
 				</div>
 				<div className={`flex items-center justify-between gap-12 w-[30%] transform transition-all duration-500 ease-in-out ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-full pointer-events-none'}`}>
 					<div className='flex gap-4 cursor-pointer transition-opacity duration-300'>
-						<div className='hover:opacity-70'>Li</div>
-						<div className='hover:opacity-70'>Gh</div>
-						<div className='hover:opacity-70'>Md</div>
+						<div className='opacity-70 hover:opacity-100'>Li</div>
+						<div className='opacity-70 hover:opacity-100'>Gh</div>
+						<div className='opacity-70 hover:opacity-100'>Md</div>
 					</div>
 					<div 
 						onClick={() => setIsContactOpen(!isContactOpen)}
-						className='cursor-pointer hover:opacity-70 transition-opacity duration-300'
+						className='cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-300'
 					>
 						Contact
 					</div>

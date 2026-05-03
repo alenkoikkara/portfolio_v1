@@ -47,6 +47,7 @@ const CustomCursor = () => {
       mousePos.current.y = e.clientY;
 
       const target = e.target;
+
       const clickable =
         target.closest('a') ||
         target.closest('button') ||
