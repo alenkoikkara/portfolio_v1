@@ -1,5 +1,6 @@
 import React, { Suspense, useRef, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Grid } from '@react-three/drei';
 import { Fluid } from '@whatisjery/react-fluid-distortion';
 import { EffectComposer } from '@react-three/postprocessing';
 import gsap from 'gsap';
@@ -68,6 +69,29 @@ function Scene() {
       <pointLight position={[10, 10, 10]} intensity={1} />
 
       <group ref={sceneRef}>
+        {[
+          { i: 0, x: -2.5, y: 0.5 },
+          { i: 1, x: -2.0, y: -0.5 },
+          { i: 2, x: 2.0, y: -0.5 },
+          { i: 3, x: -2.0, y: -0.5 },
+          { i: 4, x: 2.0, y: -0.5 }
+        ].map(({ i, x, y }) => (
+          <Grid 
+            key={i}
+            position={[x, -viewport.height * i + y, -5]} 
+            rotation={[Math.PI / 2, 0, 0]}
+            args={[15, 15]}
+            cellSize={0.25} 
+            cellThickness={1} 
+            cellColor="#f4f4f4" 
+            sectionSize={1} 
+            sectionThickness={1} 
+            sectionColor="#e8e8e8" 
+            fadeDistance={3.5} 
+            fadeStrength={1.5} 
+            followCamera={false}
+          />
+        ))}
         <HeroSection position={[0, 0, 0]} />
         <Ketto 
           position={[0, -viewport.height, 0]} 

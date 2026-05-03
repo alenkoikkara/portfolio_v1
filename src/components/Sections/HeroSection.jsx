@@ -17,6 +17,7 @@ export default function HeroSection({ position = [0, 0, 0] }) {
 
   return (
     <group position={position}>
+
       <Center 
         key={viewport.width} 
         position={[-2.1, 0.4, -2]} 
