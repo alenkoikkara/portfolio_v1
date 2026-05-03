@@ -32,7 +32,7 @@ const Navbar = () => {
 
 	return (
 		<nav className={`fixed top-0 left-0 w-full z-50 flex justify-between items-center text-[12px] font-bold p-5 transform transition-colors transition-transform duration-500 ease-in-out ${isVisible || !isHome ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
-			<div 
+			<div
 				onClick={() => {
 					if (isHome) {
 						window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -45,7 +45,7 @@ const Navbar = () => {
 				Alen Koikkara
 			</div>
 			<div className="flex items-center justify-between gap-12 w-[30%]">
-				<div 
+				<div
 					onClick={() => {
 						if (isHome) {
 							window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
@@ -57,7 +57,7 @@ const Navbar = () => {
 				>
 					Work
 				</div>
-				<div 
+				<div
 					onClick={() => navigate('/about')}
 					className={`cursor-pointer hover:text-bbblack transition-colors duration-300 ${isPastHero ? 'text-bbblack' : 'text-slate'}`}
 				>

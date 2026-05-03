@@ -61,7 +61,7 @@ export default function Shreya({
   const imgHeight = imgWidth * 0.6; // assuming somewhat standard aspect ratio
 
   return (
-    <group 
+    <group
       position={position}
       onPointerEnter={(e) => {
         e.stopPropagation();
@@ -81,14 +81,14 @@ export default function Shreya({
           ref={imageRef}
           url={imageUrl}
           position={[-imgWidth / 2 - 0.5, 0, 0]}
-          scale={[imgWidth, imgHeight]}
+          scale={[imgWidth * 1.2, imgHeight]}
           transparent
           opacity={1}
           grayscale={1}
-        />  
+        />
 
         {/* Right Side: Title and Subtitle */}
-        <group position={[-.34, -imgHeight * .60, 0]}>
+        <group position={[-.20, -imgHeight * .60, 0]}>
           <group position={[0, 0.35, 0]}>
             <Text
               font={SATOSHI_BOLD}

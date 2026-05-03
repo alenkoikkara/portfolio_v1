@@ -76,7 +76,7 @@ export default function Aanchal({
       <group position={[0, 0, 0]}>
 
         {/* Left Side: Title and Subtitle */}
-        <group position={[.4, -imgHeight * .60, 0]}>
+        <group position={[.2, -imgHeight * .60, 0]}>
           <group position={[0, 0.35, 0]}>
             <Text
               font={SATOSHI_BOLD}
@@ -120,7 +120,7 @@ export default function Aanchal({
           ref={imageRef}
           url={imageUrl}
           position={[imgWidth / 2 + 0.5, 0, 0]}
-          scale={[imgWidth, imgHeight]}
+          scale={[imgWidth * 1.2, imgHeight]}
           transparent
           opacity={1}
           grayscale={1}

@@ -71,7 +71,7 @@ function PageNavigation() {
   };
 
   return (
-    <SidebarNavigation 
+    <SidebarNavigation
       links={pages}
       activeIndex={-1}
       className={`transition-opacity duration-1000 ${isScrolled ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}

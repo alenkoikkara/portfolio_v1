@@ -15,6 +15,8 @@ import Aanchal from './Sections/Aanchal';
 import glass from '../assets/glass.png';
 import ketto from '../assets/kettobanner.png';
 import memento from '../assets/mementoipad.png';
+import shreya from '../assets/shreya.png';
+import aanchal from '../assets/aanchal.png';
 
 
 
@@ -111,14 +113,14 @@ function Scene() {
         />
         <Shreya
           position={[0, -viewport.height * 3, 0]} 
-          imageUrl={glass} // Using archUrl placeholder or actual image URL you have
+          imageUrl={shreya} // Using archUrl placeholder or actual image URL you have
           titlePre="Shreya"
           titlePost=""
           subtitle="Portfolio Website"
         />
         <Aanchal
           position={[0, -viewport.height * 4, 0]} 
-          imageUrl={glass} // Using archUrl placeholder or actual image URL you have
+          imageUrl={aanchal} // Using archUrl placeholder or actual image URL you have
           titlePre="Aanchal"
           titlePost=""
           subtitle="Portfolio Website"
