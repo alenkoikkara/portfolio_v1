@@ -2,35 +2,46 @@ import React, { useState } from 'react';
 import { useRandomToggle } from '../hooks/useRandomToggle';
 import SidebarNavigation from '../components/SidebarNavigation';
 
-// Photography images
-import citySunset from '../assets/photography/city_sunset.png';
-import benchBw from '../assets/photography/bench_bw.png';
-import harbor from '../assets/photography/harbor.png';
-import streetGlow from '../assets/photography/street_glow.png';
-import cloudscape from '../assets/photography/cloudscape.png';
-import beachSilhouette from '../assets/photography/beach_silhouette.png';
-import rooftopView from '../assets/photography/rooftop_view.png';
-import trainStation from '../assets/photography/train_station.png';
+import img1 from '../assets/photography/img1.webp';
+import img2 from '../assets/photography/img2.webp';
+import img3 from '../assets/photography/img3.webp';
+import img4 from '../assets/photography/img4.webp';
+import img5 from '../assets/photography/img5.webp';
+import img6 from '../assets/photography/img6.webp';
+import img7 from '../assets/photography/img7.webp';
+import img8 from '../assets/photography/img8.webp';
+import img9 from '../assets/photography/img9.webp';
+import img10 from '../assets/photography/img10.webp';
+import img11 from '../assets/photography/img11.webp';
+import img12 from '../assets/photography/img12.webp';
+import img13 from '../assets/photography/img13.webp';
+import img14 from '../assets/photography/img14.webp';
+import img15 from '../assets/photography/img15.webp';
 
 // 4 photos per row, each with its own metadata
 const PHOTO_ROWS = [
   [
-    { src: citySunset, title: 'Lego City', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4' },
-    { src: citySunset, title: 'Lego City', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4' },
-    { src: harbor, title: 'Harbor Dusk', date: 'Friday, Jun 20, 2025 at 8:45 PM', location: 'Vancouver, CA', lens: '24mm / f/2.8' },
-    { src: rooftopView, title: 'Golden Hour', date: 'Thursday, Jul 10, 2025 at 7:30 PM', location: 'Seattle, WA', lens: '24mm / f/2.8' },
+    { src: img1, title: 'Lego City', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4' },
+    { src: img2, title: 'Lego City', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4' },
+    { src: img3, title: 'Harbor Dusk', date: 'Friday, Jun 20, 2025 at 8:45 PM', location: 'Vancouver, CA', lens: '24mm / f/2.8' },
+    { src: img4, title: 'Golden Hour', date: 'Thursday, Jul 10, 2025 at 7:30 PM', location: 'Seattle, WA', lens: '24mm / f/2.8' },
   ],
   [
-    { src: streetGlow, title: 'Night Walk', date: 'Wednesday, Jan 15, 2025 at 11:30 PM', location: 'Brooklyn, NY', lens: '35mm / f/1.4' },
-    { src: cloudscape, title: 'Storm Coming', date: 'Saturday, Apr 5, 2025 at 6:12 PM', location: 'Kansas City, MO', lens: '16mm / f/4' },
-    { src: trainStation, title: 'Platform 3', date: 'Monday, Feb 24, 2025 at 9:15 PM', location: 'London, UK', lens: '35mm / f/1.4' },
-    { src: beachSilhouette, title: 'City of Dreams', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Mumbai, IN', lens: '100mm / f/1.4' },
+    { src: img5, title: 'Night Walk', date: 'Wednesday, Jan 15, 2025 at 11:30 PM', location: 'Brooklyn, NY', lens: '35mm / f/1.4' },
+    { src: img6, title: 'Storm Coming', date: 'Saturday, Apr 5, 2025 at 6:12 PM', location: 'Kansas City, MO', lens: '16mm / f/4' },
+    { src: img7, title: 'Platform 3', date: 'Monday, Feb 24, 2025 at 9:15 PM', location: 'London, UK', lens: '35mm / f/1.4' },
+    { src: img8, title: 'City of Dreams', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Mumbai, IN', lens: '100mm / f/1.4' },
   ],
   [
-    { src: streetGlow, title: 'Night Walk', date: 'Wednesday, Jan 15, 2025 at 11:30 PM', location: 'Brooklyn, NY', lens: '35mm / f/1.4' },
-    { src: cloudscape, title: 'Storm Coming', date: 'Saturday, Apr 5, 2025 at 6:12 PM', location: 'Kansas City, MO', lens: '16mm / f/4' },
-    { src: trainStation, title: 'Platform 3', date: 'Monday, Feb 24, 2025 at 9:15 PM', location: 'London, UK', lens: '35mm / f/1.4' },
-    { src: beachSilhouette, title: 'City of Dreams', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Mumbai, IN', lens: '100mm / f/1.4' },
+    { src: img9, title: 'Night Walk', date: 'Wednesday, Jan 15, 2025 at 11:30 PM', location: 'Brooklyn, NY', lens: '35mm / f/1.4' },
+    { src: img10, title: 'Storm Coming', date: 'Saturday, Apr 5, 2025 at 6:12 PM', location: 'Kansas City, MO', lens: '16mm / f/4' },
+    { src: img11, title: 'Platform 3', date: 'Monday, Feb 24, 2025 at 9:15 PM', location: 'London, UK', lens: '35mm / f/1.4' },
+    { src: img12, title: 'City of Dreams', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Mumbai, IN', lens: '100mm / f/1.4' },
+  ],
+  [
+    { src: img13, title: 'Night Walk', date: 'Wednesday, Jan 15, 2025 at 11:30 PM', location: 'Brooklyn, NY', lens: '35mm / f/1.4' },
+    { src: img14, title: 'Storm Coming', date: 'Saturday, Apr 5, 2025 at 6:12 PM', location: 'Kansas City, MO', lens: '16mm / f/4' },
+    { src: img15, title: 'Platform 3', date: 'Monday, Feb 24, 2025 at 9:15 PM', location: 'London, UK', lens: '35mm / f/1.4' },
   ],
 ];
 
