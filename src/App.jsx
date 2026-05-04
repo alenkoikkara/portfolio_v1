@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
 import FluidCanvas from './components/FluidCanvas';
 import Navbar from './components/Navbar';
 import BottomBar from './components/BottomBar';
@@ -114,6 +114,18 @@ function ScrollIndicator() {
 
 
 function HomePage() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.state?.scrollToWork) {
+      setTimeout(() => {
+        window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
+      }, 50);
+      // Clean up the state so it doesn't scroll again on manual refresh
+      window.history.replaceState({}, document.title);
+    }
+  }, [location]);
+
   return (
     <ReactLenis root>
       <div className="relative w-full">

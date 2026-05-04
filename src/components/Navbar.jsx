@@ -50,16 +50,16 @@ const Navbar = () => {
 						if (isHome) {
 							window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
 						} else {
-							navigate('/');
+							navigate('/', { state: { scrollToWork: true } });
 						}
 					}}
-					className={`cursor-pointer hover:text-bbblack transition-colors duration-300 ${isPastHero ? 'text-bbblack' : 'text-slate'}`}
+					className={`cursor-pointer hover:text-bbblack transition-colors duration-300 ${(location.pathname === '/' && isPastHero) ? 'text-bbblack' : 'text-slate'}`}
 				>
 					Work
 				</div>
 				<div
 					onClick={() => navigate('/about')}
-					className={`cursor-pointer hover:text-bbblack transition-colors duration-300 ${isPastHero ? 'text-bbblack' : 'text-slate'}`}
+					className={`cursor-pointer hover:text-bbblack transition-colors duration-300 ${location.pathname === '/about' ? 'text-bbblack' : 'text-slate'}`}
 				>
 					About
 				</div>
