@@ -38,27 +38,27 @@ import thumb15 from '../assets/photography/img15_small.jpg';
 // 4 photos per row, each with its own metadata
 const PHOTO_ROWS = [
   [
-    { src: thumb1, fullSrc: img1, title: 'Lego City', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4' },
-    { src: thumb2, fullSrc: img2, title: 'Lego City', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4' },
-    { src: thumb3, fullSrc: img3, title: 'Harbor Dusk', date: 'Friday, Jun 20, 2025 at 8:45 PM', location: 'Vancouver, CA', lens: '24mm / f/2.8' },
-    { src: thumb4, fullSrc: img4, title: 'Golden Hour', date: 'Thursday, Jul 10, 2025 at 7:30 PM', location: 'Seattle, WA', lens: '24mm / f/2.8' },
+    { src: thumb1, fullSrc: img1, title: 'Render', date: 'Friday, May 30, 2025 at 8:05 PM', location: 'Madison, Chicago', lens: '250mm / f4-5.6 IS II' },
+    { src: thumb2, fullSrc: img2, title: 'Horizon', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4' },
+    { src: thumb3, fullSrc: img3, title: 'Ashland Intersection', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Madison & Ashland, Chicago', lens: '100mm / f/1.4' },
+    { src: thumb4, fullSrc: img4, title: 'Lonely Docks', date: 'Saturday, May 24, 2025 at 6:50 PM', location: 'New York, NY', lens: '26mm / f/1.6' },
   ],
   [
-    { src: thumb5, fullSrc: img5, title: 'Night Walk', date: 'Wednesday, Jan 15, 2025 at 11:30 PM', location: 'Brooklyn, NY', lens: '35mm / f/1.4' },
-    { src: thumb6, fullSrc: img6, title: 'Storm Coming', date: 'Saturday, Apr 5, 2025 at 6:12 PM', location: 'Kansas City, MO', lens: '16mm / f/4' },
-    { src: thumb7, fullSrc: img7, title: 'Platform 3', date: 'Monday, Feb 24, 2025 at 9:15 PM', location: 'London, UK', lens: '35mm / f/1.4' },
-    { src: thumb8, fullSrc: img8, title: 'City of Dreams', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Mumbai, IN', lens: '100mm / f/1.4' },
+    { src: thumb5, fullSrc: img5, title: 'Astigmatic Eyes', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4' },
+    { src: thumb6, fullSrc: img6, title: 'Karwan', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Mahabaleshwar, Maharashtra', lens: '100mm / f/1.4' },
+    { src: thumb7, fullSrc: img7, title: 'City of Dreams', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Worli Ceiling, Mumbai', lens: '100mm / f/1.4' },
+    { src: thumb8, fullSrc: img8, title: 'Damen | Madison', date: 'Tuesday, May 17, 2024 at 11:22 AM', location: 'Damen & Madison, Chicago', lens: '96mm / f4-5.6 IS II' },
   ],
   [
-    { src: thumb9, fullSrc: img9, title: 'Night Walk', date: 'Wednesday, Jan 15, 2025 at 11:30 PM', location: 'Brooklyn, NY', lens: '35mm / f/1.4' },
-    { src: thumb10, fullSrc: img10, title: 'Storm Coming', date: 'Saturday, Apr 5, 2025 at 6:12 PM', location: 'Kansas City, MO', lens: '16mm / f/4' },
-    { src: thumb11, fullSrc: img11, title: 'Platform 3', date: 'Monday, Feb 24, 2025 at 9:15 PM', location: 'London, UK', lens: '35mm / f/1.4' },
-    { src: thumb12, fullSrc: img12, title: 'City of Dreams', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Mumbai, IN', lens: '100mm / f/1.4' },
+    { src: thumb9, fullSrc: img9, title: 'Christmas', date: 'Friday, December 30, 2024 at 6:06 PM', location: 'New York, NY', lens: '55mm / f4-5.6 IS II' },
+    { src: thumb10, fullSrc: img10, title: 'Little Sailor', date: 'Friday, May 5, 2023 at 4:07 PM', location: 'Fort Kochi, Kerala', lens: '26mm / f/1.6' },
+    { src: thumb11, fullSrc: img11, title: 'Undisclosed Location', date: 'Friday, January 1, 2025 at 2:58 PM', location: 'New York, NY', lens: '208mm / f4-5.6 IS II' },
+    { src: thumb12, fullSrc: img12, title: 'Shy', date: 'Friday, August 30, 2025 at 7:45 PM', location: 'Cherry Blossom, Chicago', lens: '250mm / f4-5.6 IS II' },
   ],
   [
-    { src: thumb13, fullSrc: img13, title: 'Night Walk', date: 'Wednesday, Jan 15, 2025 at 11:30 PM', location: 'Brooklyn, NY', lens: '35mm / f/1.4' },
-    { src: thumb14, fullSrc: img14, title: 'Storm Coming', date: 'Saturday, Apr 5, 2025 at 6:12 PM', location: 'Kansas City, MO', lens: '16mm / f/4' },
-    { src: thumb15, fullSrc: img15, title: 'Platform 3', date: 'Monday, Feb 24, 2025 at 9:15 PM', location: 'London, UK', lens: '35mm / f/1.4' },
+    { src: thumb13, fullSrc: img13, title: 'Bridges & Tunnels', date: 'Friday, August 30, 2025 at 7:57 PM', location: 'Cherry Blossom, Chicago', lens: '135mm / f4-5.6 IS II' },
+    { src: thumb14, fullSrc: img14, title: 'Lego City', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4' },
+    { src: thumb15, fullSrc: img15, title: 'Goodbyes & Goodnights', date: 'Sunday, May 17, 2025 at 11:58 AM', location: 'Damen Greenline, Chicago', lens: '163mm / f4-5.6 IS II' },
   ],
 ];
 
