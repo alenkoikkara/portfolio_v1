@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom';
+import { Routes, Route, useNavigate, useLocation, useParams } from 'react-router-dom';
 import FluidCanvas from './components/FluidCanvas';
 import Navbar from './components/Navbar';
 import BottomBar from './components/BottomBar';
@@ -46,7 +46,7 @@ function PageNavigation() {
     "Graphic Design"
   ];
 
-  const pageRoutes = ["/photography", null, null];
+  const pageRoutes = ["/photography", "/blogs", "/graphicdesign"];
   const navigate = useNavigate();
 
   const [activeSection, setActiveSection] = useState(0);
@@ -115,16 +115,49 @@ function ScrollIndicator() {
 
 function HomePage() {
   const location = useLocation();
+  const { project } = useParams();
 
   useEffect(() => {
+    let targetIndex = null;
+    let behavior = 'smooth';
+
     if (location.state?.scrollToWork) {
-      setTimeout(() => {
-        window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
-      }, 50);
-      // Clean up the state so it doesn't scroll again on manual refresh
-      window.history.replaceState({}, document.title);
+      targetIndex = 1;
+    } else if (project) {
+      const projectMap = {
+        ketto: 1,
+        memento: 2,
+        shreya: 3,
+        aanchal: 4
+      };
+      const mappedIndex = projectMap[project.toLowerCase()];
+      if (mappedIndex !== undefined) {
+        targetIndex = mappedIndex;
+        // If it's a direct hit with no previous state, jump instantly
+        behavior = 'instant'; 
+      }
     }
-  }, [location]);
+
+    if (targetIndex !== null) {
+      setTimeout(() => {
+        window.scrollTo({ top: targetIndex * window.innerHeight, behavior });
+      }, 50);
+      
+      if (location.state?.scrollToWork) {
+        window.history.replaceState({}, document.title);
+      }
+    }
+  }, [location, project]);
+
+  // Update URL silently on scroll
+  useLenis(({ scroll }) => {
+    const current = Math.round(scroll / window.innerHeight);
+    const paths = ['/', '/work/ketto', '/work/memento', '/work/shreya', '/work/aanchal'];
+    
+    if (paths[current] && window.location.pathname !== paths[current]) {
+      window.history.replaceState(null, '', paths[current]);
+    }
+  });
 
   return (
     <ReactLenis root>
@@ -156,6 +189,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/work/:project" element={<HomePage />} />
         <Route path="/photography" element={<PhotographyPage />} />
         <Route path="/about" element={<AboutPage />} />
       </Routes>

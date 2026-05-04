@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, Center } from '@react-three/drei';
 import { useThree } from '@react-three/fiber';
 import { useRandomToggle } from '../../hooks/useRandomToggle';
+import gsap from 'gsap';
 
 // Font URLs
 const SATOSHI_BOLD = "https://cdn.fontshare.com/wf/LAFFD4SDUCDVQEXFPDC7C53EQ4ZELWQI/PXCT3G6LO6ICM5I3NTYENYPWJAECAWDD/GHM6WVH6MILNYOOCXHXB5GTSGNTMGXZR.ttf";
@@ -15,12 +16,26 @@ export default function HeroSection({ position = [0, 0, 0] }) {
   const useSatoshiName = useRandomToggle(900, 2500);
   const useSatoshiCreate = useRandomToggle(900, 2500);
 
+  const [anim, setAnim] = useState({ alpha: 0, y: -0.3 });
+
+  useEffect(() => {
+    const obj = { alpha: 0, y: -0.3 };
+    gsap.to(obj, {
+      alpha: 1,
+      y: 0,
+      duration: 1.5,
+      ease: "power3.out",
+      delay: 0.2,
+      onUpdate: () => setAnim({ alpha: obj.alpha, y: obj.y })
+    });
+  }, []);
+
   return (
     <group position={position}>
 
       <Center 
         key={viewport.width} 
-        position={[-2.1, 0.4, -2]} 
+        position={[-2.1, 0.4 + anim.y, -2]} 
         scale={Math.min(1, viewport.width / 5)}
       >
         <Text
@@ -31,6 +46,7 @@ export default function HeroSection({ position = [0, 0, 0] }) {
           anchorY="middle"
           textAlign="left"
           position={[0, 1, 0]}
+          fillOpacity={anim.alpha}
         >
           Hi !
         </Text>
@@ -42,6 +58,7 @@ export default function HeroSection({ position = [0, 0, 0] }) {
             anchorX="left"
             anchorY="middle"
             textAlign="left"
+            fillOpacity={anim.alpha}
             onSync={(m) => {
               m.geometry.computeBoundingBox();
               setNameP1Width(m.geometry.boundingBox.max.x);
@@ -57,6 +74,7 @@ export default function HeroSection({ position = [0, 0, 0] }) {
             anchorY="middle"
             textAlign="left"
             position={[nameP1Width, useSatoshiName ? 0 : .03, 0]}
+            fillOpacity={anim.alpha}
           >
             o
           </Text>
@@ -68,6 +86,7 @@ export default function HeroSection({ position = [0, 0, 0] }) {
             anchorY="middle"
             textAlign="left"
             position={[nameP1Width + (useSatoshiName ? 0.32 : 0.30), 0, 0]}
+            fillOpacity={anim.alpha}
           >
             ikkara.
           </Text>
@@ -80,6 +99,7 @@ export default function HeroSection({ position = [0, 0, 0] }) {
             anchorX="left"
             anchorY="middle"
             textAlign="left"
+            fillOpacity={anim.alpha}
             onSync={(m) => {
               m.geometry.computeBoundingBox();
               setP1Width(m.geometry.boundingBox.max.x - 0.01);
@@ -95,6 +115,7 @@ export default function HeroSection({ position = [0, 0, 0] }) {
             anchorY="middle"
             textAlign="left"
             position={[p1Width, useSatoshiCreate ? -0.04 : -0.05, 0]}
+            fillOpacity={anim.alpha}
           >
             o
           </Text>
@@ -106,6 +127,7 @@ export default function HeroSection({ position = [0, 0, 0] }) {
             anchorY="middle"
             textAlign="left"
             position={[p1Width + 0.35, -.01, 0]}
+            fillOpacity={anim.alpha}
           >
             create.
           </Text>

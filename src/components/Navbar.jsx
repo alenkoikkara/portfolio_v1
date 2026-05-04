@@ -40,7 +40,7 @@ const Navbar = () => {
 						navigate('/');
 					}
 				}}
-				className={`cursor-pointer transition-colors duration-300 ${isPastHero ? 'text-slate' : 'text-bbblack'}`}
+				className={`cursor-pointer transition-colors duration-300 ${isHome && !isPastHero ? 'text-bbblack' : 'text-slate'}`}
 			>
 				Alen Koikkara
 			</div>

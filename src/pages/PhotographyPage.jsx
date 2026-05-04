@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useRandomToggle } from '../hooks/useRandomToggle';
 import SidebarNavigation from '../components/SidebarNavigation';
 
@@ -64,7 +65,7 @@ const PHOTO_ROWS = [
 import SwitchO from '../components/SwitchO';
 
 // Sidebar nav labels
-const SIDEBAR_LINKS = ['Photography', 'G', 'B'];
+const SIDEBAR_LINKS = ['Photography', 'Graphic Design', 'Blogs'];
 
 function MetadataPanel({ photo, active }) {
   return (
@@ -169,6 +170,8 @@ function PhotoRow({ photos, onPhotoClick }) {
 
 export default function PhotographyPage() {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const navigate = useNavigate();
+  const pageRoutes = ["/photography", "/graphicdesign", "/blogs"];
 
   return (
     <div className="min-h-screen bg-white relative" style={{ fontFamily: 'Satoshi, sans-serif' }}>
@@ -176,6 +179,7 @@ export default function PhotographyPage() {
       <SidebarNavigation 
         links={SIDEBAR_LINKS} 
         activeIndex={0} 
+        onLinkClick={(index) => navigate(pageRoutes[index])}
       />
       {/* Hero Section */}
       <section className="flex items-center justify-center pt-[20%] pb-[20%] px-8">
@@ -194,7 +198,7 @@ export default function PhotographyPage() {
       {/* Lightbox / Full View Modal */}
       {selectedPhoto && (
         <div 
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#10110E]/95 backdrop-blur-md animate-in fade-in duration-300"
+          className="fixed inset-0 z-100 flex items-center justify-center bg-[#10110E]/95 backdrop-blur-md animate-in fade-in duration-300"
           onClick={() => setSelectedPhoto(null)}
         >
           <div 
@@ -206,7 +210,7 @@ export default function PhotographyPage() {
               alt={selectedPhoto.title} 
               className="max-w-[90vw] max-h-[85vh] object-contain rounded-sm"
             />
-            <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end opacity-0 hover:opacity-100 transition-opacity duration-300">
+            <div className="absolute bottom-0 left-0 right-0 p-6 bg-linear-to-t from-black/80 to-transparent flex justify-between items-end opacity-0 hover:opacity-100 transition-opacity duration-300">
               <div>
                 <h3 className="text-white text-2xl font-bold mb-1" style={{ fontFamily: 'Satoshi, sans-serif' }}>{selectedPhoto.title}</h3>
                 <p className="text-white/80 text-sm font-medium">{selectedPhoto.date} • {selectedPhoto.location}</p>

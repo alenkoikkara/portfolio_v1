@@ -28,6 +28,14 @@ function Scene() {
   const sceneRef = useRef();
 
   useEffect(() => {
+    // Initial strong ripple effect on mount
+    const timer = setTimeout(() => {
+      if (fluidRef.current) {
+        fluidRef.current.intensity = 25; // Massive spike
+        fluidRef.current.force = 30; // Massive force
+      }
+    }, 600); // 600ms aligns beautifully with the text slide-up
+
     const trigger = ScrollTrigger.create({
       trigger: "main",
       start: "top top",
@@ -53,7 +61,10 @@ function Scene() {
       }
     });
 
-    return () => trigger.kill();
+    return () => {
+      trigger.kill();
+      clearTimeout(timer);
+    };
   }, [viewport.height]);
 
   useFrame(() => {
