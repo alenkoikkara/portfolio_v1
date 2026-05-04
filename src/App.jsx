@@ -181,6 +181,7 @@ function HomePage() {
 }
 
 import AboutPage from './pages/AboutPage';
+import GraphicDesignPage from './pages/GraphicDesignPage';
 
 function App() {
   return (
@@ -191,6 +192,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/work/:project" element={<HomePage />} />
         <Route path="/photography" element={<PhotographyPage />} />
+        <Route path="/graphicdesign" element={<GraphicDesignPage />} />
         <Route path="/about" element={<AboutPage />} />
       </Routes>
       <BottomBar />
