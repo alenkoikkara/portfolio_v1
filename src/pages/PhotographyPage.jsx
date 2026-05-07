@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useRandomToggle } from '../hooks/useRandomToggle';
 import SidebarNavigation from '../components/SidebarNavigation';
 
 import img1 from '../assets/photography/img1.webp';
@@ -18,6 +17,11 @@ import img12 from '../assets/photography/img12.webp';
 import img13 from '../assets/photography/img13.webp';
 import img14 from '../assets/photography/img14.webp';
 import img15 from '../assets/photography/img15.webp';
+import img16 from '../assets/photography/img16.webp';
+import img17 from '../assets/photography/img17.webp';
+import img18 from '../assets/photography/img18.webp';
+import img19 from '../assets/photography/img19.webp';
+import img20 from '../assets/photography/img20.webp';
 
 import thumb1 from '../assets/photography/img1_small.jpg';
 import thumb2 from '../assets/photography/img2_small.jpg';
@@ -34,31 +38,53 @@ import thumb12 from '../assets/photography/img12_small.jpg';
 import thumb13 from '../assets/photography/img13_small.jpg';
 import thumb14 from '../assets/photography/img14_small.jpg';
 import thumb15 from '../assets/photography/img15_small.jpg';
+import thumb16 from '../assets/photography/img16_small.jpg';
+import thumb17 from '../assets/photography/img17_small.jpg';
+import thumb18 from '../assets/photography/img18_small.jpg';
+import thumb19 from '../assets/photography/img19_small.jpg';
+import thumb20 from '../assets/photography/img20_small.jpg';
+
+import img7_w from '../assets/photography/img7_w.png';
+import img1_w from '../assets/photography/img1_w.png';
+import img2_w from '../assets/photography/img2_w.png';
+import img3_w from '../assets/photography/img3_w.png';
+import img4_w from '../assets/photography/img4_w.png';
+import img5_w from '../assets/photography/img5_w.png';
+import img6_w from '../assets/photography/img6_w.png';
+import img8_w from '../assets/photography/img8_w.png';
+import img10_w from '../assets/photography/img10_w.png';
 
 // 4 photos per row, each with its own metadata
 const PHOTO_ROWS = [
   [
-    { src: thumb1, fullSrc: img1, title: 'Render', date: 'Friday, May 30, 2025 at 8:05 PM', location: 'Madison, Chicago', lens: '250mm / f4-5.6 IS II' },
-    { src: thumb2, fullSrc: img2, title: 'Horizon', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4' },
-    { src: thumb3, fullSrc: img3, title: 'Ashland Intersection', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Madison & Ashland, Chicago', lens: '100mm / f/1.4' },
-    { src: thumb4, fullSrc: img4, title: 'Lonely Docks', date: 'Saturday, May 24, 2025 at 6:50 PM', location: 'New York, NY', lens: '26mm / f/1.6' },
+    { src: thumb1, altSrc: img1_w, fullSrc: img1, title: 'Render', date: 'Friday, May 30, 2025 at 8:05 PM', location: 'Madison, Chicago', lens: '250mm / f4-5.6 IS II', specialHover: 'splash' },
+    { src: thumb13, fullSrc: img13, title: 'Bridges & Tunnels', date: 'Friday, August 30, 2025 at 7:57 PM', location: 'Cherry Blossom, Chicago', lens: '135mm / f4-5.6 IS II' },
+    { src: thumb4, altSrc: img4_w, fullSrc: img4, title: 'Lonely Docks', date: 'Saturday, May 24, 2025 at 6:50 PM', location: 'New York, NY', lens: '26mm / f/1.6', specialHover: 'splash' },
+    { src: thumb18, fullSrc: img18, title: 'Stopping by the woods', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4' },
   ],
   [
-    { src: thumb5, fullSrc: img5, title: 'Astigmatic Eyes', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4' },
-    { src: thumb6, fullSrc: img6, title: 'Karwan', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Mahabaleshwar, Maharashtra', lens: '100mm / f/1.4' },
-    { src: thumb7, fullSrc: img7, title: 'City of Dreams', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Worli Ceiling, Mumbai', lens: '100mm / f/1.4' },
-    { src: thumb8, fullSrc: img8, title: 'Damen | Madison', date: 'Tuesday, May 17, 2024 at 11:22 AM', location: 'Damen & Madison, Chicago', lens: '96mm / f4-5.6 IS II' },
+    { src: thumb2, altSrc: img2_w, fullSrc: img2, title: 'Horizon', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4', specialHover: 'splash' },
+    { src: thumb14, fullSrc: img14, title: 'Lego City', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4' },
+    { src: thumb5, altSrc: img5_w, fullSrc: img5, title: 'Astigmatic Eyes', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4', specialHover: 'splash' },
+    { src: thumb6, altSrc: img6_w, fullSrc: img6, title: 'Karwan', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Mahabaleshwar, Maharashtra', lens: '100mm / f/1.4', specialHover: 'splash' },
   ],
   [
     { src: thumb9, fullSrc: img9, title: 'Christmas', date: 'Friday, December 30, 2024 at 6:06 PM', location: 'New York, NY', lens: '55mm / f4-5.6 IS II' },
-    { src: thumb10, fullSrc: img10, title: 'Little Sailor', date: 'Friday, May 5, 2023 at 4:07 PM', location: 'Fort Kochi, Kerala', lens: '26mm / f/1.6' },
+    { src: thumb10, altSrc: img10_w, fullSrc: img10, title: 'Little Sailor', date: 'Friday, May 5, 2023 at 4:07 PM', location: 'Fort Kochi, Kerala', lens: '26mm / f/1.6', specialHover: 'splash' },
     { src: thumb11, fullSrc: img11, title: 'Undisclosed Location', date: 'Friday, January 1, 2025 at 2:58 PM', location: 'New York, NY', lens: '208mm / f4-5.6 IS II' },
     { src: thumb12, fullSrc: img12, title: 'Shy', date: 'Friday, August 30, 2025 at 7:45 PM', location: 'Cherry Blossom, Chicago', lens: '250mm / f4-5.6 IS II' },
   ],
   [
-    { src: thumb13, fullSrc: img13, title: 'Bridges & Tunnels', date: 'Friday, August 30, 2025 at 7:57 PM', location: 'Cherry Blossom, Chicago', lens: '135mm / f4-5.6 IS II' },
-    { src: thumb14, fullSrc: img14, title: 'Lego City', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'New York, NY', lens: '100mm / f/1.4' },
+    { src: thumb8, altSrc: img8_w, fullSrc: img8, title: 'Damen | Madison', date: 'Tuesday, May 17, 2024 at 11:22 AM', location: 'Damen & Madison, Chicago', lens: '96mm / f4-5.6 IS II', specialHover: 'splash' },
     { src: thumb15, fullSrc: img15, title: 'Goodbyes & Goodnights', date: 'Sunday, May 17, 2025 at 11:58 AM', location: 'Damen Greenline, Chicago', lens: '163mm / f4-5.6 IS II' },
+    { src: thumb16, fullSrc: img16, title: 'Anxious', date: 'Sunday, May 17, 2025 at 11:58 AM', location: 'Damen Greenline, Chicago', lens: '163mm / f4-5.6 IS II' },
+    { src: thumb7, altSrc: img7_w, fullSrc: img7, title: 'City of Dreams', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Worli Ceiling, Mumbai', lens: '100mm / f/1.4', specialHover: 'splash' },
+  ],
+  [
+    { src: thumb17, fullSrc: img17, title: 'Who poked me? - Sky', date: 'Friday, August 30, 2025 at 7:57 PM', location: 'Cherry Blossom, Chicago', lens: '135mm / f4-5.6 IS II' },
+    { src: thumb19, fullSrc: img19, title: 'Vulnerable', date: 'Sunday, May 17, 2025 at 11:58 AM', location: 'Damen Greenline, Chicago', lens: '163mm / f4-5.6 IS II' },
+    { src: thumb3, altSrc: img3_w, fullSrc: img3, title: 'Ashland Intersection', date: 'Saturday, May 17, 2025 at 7:58 PM', location: 'Madison & Ashland, Chicago', lens: '100mm / f/1.4', specialHover: 'splash' },
+    { src: thumb20, fullSrc: img20, title: 'Action', date: 'Sunday, May 17, 2025 at 11:58 AM', location: 'Damen Greenline, Chicago', lens: '163mm / f4-5.6 IS II' },
   ],
 ];
 
@@ -113,6 +139,13 @@ function PhotoRow({ photos, onPhotoClick }) {
         const isHovered = hoveredIdx === idx;
         const isCompressed = idx === compressIdx;
 
+        // Pseudo-random values for organic altSrc background blending
+        const randomX = 40 + (idx * 27) % 20;
+        const randomY = 40 + (idx * 43) % 20;
+        const randomStop1 = 20 + (idx * 31) % 25;
+        const randomStop2 = 65 + (idx * 37) % 25;
+        const altMask = `radial-gradient(ellipse at ${randomX}% ${randomY}%, black ${randomStop1}%, transparent ${randomStop2}%)`;
+
         return (
           <div
             key={idx}
@@ -140,19 +173,58 @@ function PhotoRow({ photos, onPhotoClick }) {
 
               {/* Photo — zoom on self-hover */}
               <div 
-                className="h-full overflow-hidden" 
+                className="h-full overflow-hidden relative group" 
                 style={{ flex: '1', minWidth: 0 }}
                 onClick={() => onPhotoClick(photo)}
               >
-                <img
-                  src={photo.src}
-                  alt={photo.title}
-                  className="w-full h-full object-cover"
-                  style={{
-                    transform: isHovered ? 'scale(1.05)' : 'scale(1)',
-                    transition: 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
-                  }}
-                />
+                {photo.specialHover === 'splash' && photo.altSrc ? (
+                  <>
+                    {/* The initial image (img10_w) */}
+                    <img
+                      src={photo.altSrc}
+                      alt={photo.title + ' initial'}
+                      className="absolute inset-0 w-full h-full object-cover opacity-40 z-10"
+                      style={{
+                        transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+                        transition: 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
+                        WebkitMaskImage: altMask,
+                        maskImage: altMask,
+                      }}
+                    />
+                    {/* The revealed image (img10_small) with watercolor painting splash */}
+                    <img
+                      src={photo.src}
+                      alt={photo.title}
+                      className="absolute inset-0 w-full h-full object-cover z-20"
+                      style={{
+                        transform: isHovered ? 'scale(1.05)' : 'scale(1.15)',
+                        filter: isHovered 
+                          ? 'saturate(1) blur(0px) contrast(1)' 
+                          : 'saturate(4) blur(16px) contrast(1.2)',
+                        opacity: isHovered ? 1 : 0,
+                        WebkitMaskImage: 'radial-gradient(circle, black 30%, transparent 70%)',
+                        WebkitMaskSize: isHovered ? '250% 250%' : '0% 0%',
+                        WebkitMaskPosition: 'center',
+                        WebkitMaskRepeat: 'no-repeat',
+                        maskImage: 'radial-gradient(circle, black 30%, transparent 70%)',
+                        maskSize: isHovered ? '250% 250%' : '0% 0%',
+                        maskPosition: 'center',
+                        maskRepeat: 'no-repeat',
+                        transition: 'transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.9s ease, opacity 0.4s ease, -webkit-mask-size 0.9s cubic-bezier(0.2, 0.8, 0.2, 1), mask-size 0.9s cubic-bezier(0.2, 0.8, 0.2, 1)',
+                      }}
+                    />
+                  </>
+                ) : (
+                  <img
+                    src={photo.src}
+                    alt={photo.title}
+                    className="w-full h-full object-cover"
+                    style={{
+                      transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+                      transition: 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)',
+                    }}
+                  />
+                )}
               </div>
 
               {/* Right Metadata Panel — active if the hovered image is to the right */}
@@ -183,8 +255,14 @@ export default function PhotographyPage() {
       />
       {/* Hero Section */}
       <section className="flex items-center justify-center pt-[20%] pb-[20%] px-8">
-        <h1 className="text-[64px] font-bold text-bbblack leading-none">
-          I l<SwitchO />ve ph<SwitchO />t<SwitchO />graphy too !
+        <h1 className="text-[64px] font-bold leading-none">
+          <span className="text-transparent" style={{ WebkitTextStroke: '1.5px var(--color-slate)' }}>I l</span>
+          <SwitchO className="text-bbblack" />
+          <span className="text-transparent" style={{ WebkitTextStroke: '1.5px var(--color-slate)' }}>ve ph</span>
+          <SwitchO className="text-bbblack" />
+          <span className="text-transparent" style={{ WebkitTextStroke: '1.5px var(--color-slate)' }}>t</span>
+          <SwitchO className="text-bbblack" />
+          <span className="text-transparent" style={{ WebkitTextStroke: '1.5px var(--color-slate)' }}>graphy too !</span>
         </h1>
       </section>
 

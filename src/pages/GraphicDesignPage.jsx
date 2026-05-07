@@ -2,19 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SwitchO from '../components/SwitchO';
 import SidebarNavigation from '../components/SidebarNavigation';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const SIDEBAR_LINKS = ['Photography', 'Graphic Design', 'Blogs'];
 
 const PROJECTS = [
   {
     id: 1,
-    title: 'Komorebi',
+    title: `K<span class="o-target text-transparent inline-block w-[1ch] text-center">o</span>morebi`,
     subtitle: 'Japanese Cafe',
-    intro: `<span class="text-[#B25D38] font-bold">Komorebi</span> is a conceptual coffee brand inspired by the Japanese word 木漏れ日,<br/>which translates to "sunlight filtered through tree leaves."<br/>The brand explores calmness, warmth, and quiet moments — positioning coffee<br/>not as a rush, but as a pause.`,
+    intro: `<span class="text-[#B25D38] font-bold">K<span class="o-target text-transparent inline-block w-[1ch] text-center">o</span>morebi</span> is a conceptual coffee brand inspired by the Japanese word 木漏れ日,<br/>which translates to "sunlight filtered through tree leaves."<br/>The brand explores calmness, warmth, and quiet moments — positioning coffee<br/>not as a rush, but as a pause.`,
     features: [
       {
         id: 1,
-        title: '1. Typography',
+        title: `1. Typ<span class="o-target text-transparent inline-block w-[1ch] text-center">o</span>graphy`,
         image: '',
         content: `
           <p class="mb-3">Loram was chosen as the primary typeface for its:</p>
@@ -28,7 +32,7 @@ const PROJECTS = [
       },
       {
         id: 2,
-        title: '2. Logo & Symbol',
+        title: `2. L<span class="o-target text-transparent inline-block w-[1ch] text-center">o</span>go & Symbol`,
         image: '',
         content: `
           <p class="mb-3">The logo mark is inspired by coffee beans and organic forms, subtly referencing nature<br/>and craftsmanship.</p>
@@ -37,10 +41,10 @@ const PROJECTS = [
       },
       {
         id: 3,
-        title: '3. Packaging',
+        title: `3. Packaging`,
         image: '',
         content: `
-          <p class="mb-3">The cup and box packaging were designed to feel quietly confident.</p>
+          <p class="mb-3">The cup and box packaging were designed to feel quietly c<span class="o-target text-transparent inline-block w-[1ch] text-center">o</span>nfident.</p>
           <ul class="list-disc pl-5 mb-3 space-y-1">
             <li>Minimal branding allows the materials and illustrations to breathe</li>
             <li>Subtle floral detailing adds character without clutter</li>
@@ -50,7 +54,7 @@ const PROJECTS = [
         `
       }
     ],
-    outro: `This project demonstrates my approach to concept-driven branding, where<br/>every design decision is tied back to a central idea and emotional experience.<br/><span class="text-[#B25D38] font-bold">Komorebi</span> exists as a visual exploration of how branding can feel calm, poetic,<br/>and intentional, even in a fast-paced industry like coffee.`
+    outro: `This project demonstrates my approach to concept-driven branding, where<br/>every design decision is tied back to a central idea and emotional experience.<br/><span class="text-[#B25D38] font-bold">K<span class="o-target text-transparent inline-block w-[1ch] text-center">o</span>morebi</span> exists as a visual exploration of how branding can feel calm, poetic,<br/>and intentional, even in a fast-paced industry like coffee.`
   },
   {
     id: 2,
@@ -81,22 +85,80 @@ const PROJECTS = [
 export default function GraphicDesignPage() {
   const navigate = useNavigate();
   const pageRoutes = ["/photography", "/graphicdesign", "/blogs"];
-  const [scrollOpacity, setScrollOpacity] = useState(1);
+  const project = PROJECTS[0]; // Render only one project per page
 
   useEffect(() => {
+    const indicator = document.getElementById('scroll-indicator');
     const handleScroll = () => {
-      const newOpacity = Math.max(0, 1 - window.scrollY / 200);
-      setScrollOpacity(newOpacity);
+      if (indicator) {
+        const newOpacity = Math.max(0, 1 - window.scrollY / 200);
+        indicator.style.opacity = newOpacity;
+      }
     };
     window.addEventListener('scroll', handleScroll);
     handleScroll(); // Init
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    const timer = setTimeout(() => {
+      const targets = gsap.utils.toArray('.o-target');
+      const traveler = document.getElementById('traveling-o');
+      if (!targets.length || !traveler) return;
+
+      const moveTraveler = (target, duration = 0.8) => {
+        // Query the DOM dynamically to ensure we get the live node, avoiding detached node issues
+        const liveTargets = gsap.utils.toArray('.o-target');
+        const targetIndex = targets.indexOf(target);
+        const liveTarget = liveTargets[targetIndex] || target;
+
+        const rect = liveTarget.getBoundingClientRect();
+        const style = window.getComputedStyle(liveTarget);
+        
+        gsap.to(traveler, {
+          x: rect.left + window.scrollX,
+          y: rect.top + window.scrollY,
+          fontSize: style.fontSize,
+          lineHeight: style.lineHeight,
+          duration: duration,
+          ease: "power3.out"
+        });
+      };
+
+      // Place immediately at first target
+      moveTraveler(targets[0], 0);
+
+      targets.forEach((target) => {
+        ScrollTrigger.create({
+          trigger: target,
+          start: "top 60%", // triggers when target is 60% down the viewport
+          end: "bottom top",
+          onEnter: () => moveTraveler(target),
+          onEnterBack: () => moveTraveler(target)
+        });
+      });
+
+      const onResize = () => {
+        ScrollTrigger.refresh();
+        // Recalculate position for the first target dynamically or track active
+        moveTraveler(targets[0], 0); // Failsafe reposition
+      };
+      window.addEventListener('resize', onResize);
+    }, 200);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      clearTimeout(timer);
+      ScrollTrigger.getAll().forEach(st => st.kill());
+    };
   }, []);
 
-  const project = PROJECTS[0]; // Render only one project per page
 
   return (
     <div className="min-h-screen bg-white relative pb-32" style={{ fontFamily: 'Satoshi, sans-serif' }}>
+      
+      {/* The Traveling O */}
+      <span id="traveling-o" className="absolute top-0 left-0 pointer-events-none z-[100] m-0 p-0 font-bold text-bbblack w-[1ch] text-center inline-block">
+        <SwitchO fontSize="inherit" />
+      </span>
+
       <SidebarNavigation 
         links={SIDEBAR_LINKS} 
         activeIndex={1} 
@@ -106,14 +168,14 @@ export default function GraphicDesignPage() {
       {/* Hero Section */}
       <section className="w-full h-screen flex flex-col items-center justify-center px-8">
         <h1 className="text-[48px] md:text-[64px] font-bold text-bbblack leading-none text-center max-w-[1000px]">
-          A bit m<SwitchO fontSize="inherit" />re to the Creative Space.
+          A bit m<span className="o-target text-transparent inline-block w-[1ch] text-center">o</span>re to the Creative Space.
         </h1>
       </section>
 
       {/* Scroll Indicator */}
       <div
+        id="scroll-indicator"
         className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center gap-1 pointer-events-none"
-        style={{ opacity: scrollOpacity }}
       >
         <svg
           width="16"
@@ -136,7 +198,7 @@ export default function GraphicDesignPage() {
           
           {/* Project Header */}
             <div className="text-center mb-8">
-              <h2 className="text-[32px] md:text-[40px] font-bold text-bbblack leading-none mb-2">{project.title}</h2>
+              <h2 className="text-[32px] md:text-[40px] font-bold text-bbblack leading-none mb-2" dangerouslySetInnerHTML={{ __html: project.title }} />
               <p className="text-[12px] md:text-[14px] font-semibold text-slate/70">{project.subtitle}</p>
             </div>
 
@@ -163,7 +225,7 @@ export default function GraphicDesignPage() {
 
                   {/* Text Block */}
                   <div className="w-full md:w-1/2 flex flex-col items-start text-left">
-                    <h3 className="text-[24px] md:text-[28px] font-bold text-bbblack mb-6">{feature.title}</h3>
+                    <h3 className="text-[24px] md:text-[28px] font-bold text-bbblack mb-6" dangerouslySetInnerHTML={{ __html: feature.title }} />
                     <div 
                       className="text-[13px] md:text-[14px] font-semibold text-bbblack/80 leading-relaxed"
                       dangerouslySetInnerHTML={{ __html: feature.content }}
